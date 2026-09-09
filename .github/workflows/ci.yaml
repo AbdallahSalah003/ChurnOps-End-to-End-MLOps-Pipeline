@@ -1,0 +1,56 @@
+name: MLOps Pipeline
+
+on:
+  push:
+    branches: [main]
+
+env:
+  AWS_REGION: us-east-1
+  S3_BUCKET: churn-models-bucket-526741672098
+
+jobs:
+  train-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{secrets.GITHUB_TOKEN}}
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with: 
+        python-version: '3.12'
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        version: latest
+    - name: Install dependencies
+      run: |
+        uv sync --forzen
+    - name: Run churn prediction pipeline
+      run: |
+        uv run pipeline.py
+    - name: Configure AWS credentials 
+      uses: aws-actions/configure-aws-credentials@v4
+      with: 
+        aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+        aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        aws-region: ${{env.AWS_REGION}}
+    - name: Push new model to s3
+      run: |
+        aws s3 cp models/model.joblib s3://${{env.S3_BUCKET}}/models/model.joblib
+        echo "Model pushed to s3 successfully"
+    - name: Update inference.yaml file
+      run: |
+        MODEL_URI="s3://churn-models-bucket-526741672098/models/model.joblib"
+        sed -i "s|storageUri: .*|storageUri: $MODEL_URI|g" k8s/inference.yaml
+    - name: Commit updated inference.yaml
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add k8s/inference.yaml
+        git commit -m "Update model S3 path [skip ci]" || echo "No changes"
+        git push || echo "No changes to push"
