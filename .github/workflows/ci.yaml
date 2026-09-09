@@ -29,7 +29,7 @@ jobs:
         version: latest
     - name: Install dependencies
       run: |
-        uv sync --forzen
+        uv sync --frozen
     - name: Run churn prediction pipeline
       run: |
         uv run pipeline.py
