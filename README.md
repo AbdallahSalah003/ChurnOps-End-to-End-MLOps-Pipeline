@@ -176,13 +176,3 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 3. **ArgoCD detects change** in `inference.yaml`
 4. **ArgoCD syncs** → Deploys to Kubernetes
 5. **KServe serves** the new model version
-
-
-## Key Components
-
-- **DVC**: Version control for data and models in S3
-- **S3**: Remote storage for models and data
-- **KServe**: ML inference on Kubernetes
-- **KIND**: Local Kubernetes for testing
-- **GitHub Actions**: CI/CD automation
-- **ArgoCD**: GitOps continuous deployment
