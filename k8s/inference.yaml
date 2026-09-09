@@ -9,4 +9,4 @@ spec:
     model:
       modelFormat:
         name: sklearn
-      storageUri: "s3://churn-dataset-ops/models"
+      storageUri: s3://churn-models-bucket-526741672098/models/model.joblib
