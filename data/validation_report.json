@@ -1,0 +1,11 @@
+{
+  "file": "data/raw.csv",
+  "total_rows": 7043,
+  "total_columns": 21,
+  "duplicates": 0,
+  "is_valid": true,
+  "errors": [],
+  "warnings": [
+    "Column 'TotalCharges' has 11 blank values"
+  ]
+}

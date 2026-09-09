@@ -8,4 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
-data/
+data/kaggle_download
+data/*.csv
+data/*.joblib
