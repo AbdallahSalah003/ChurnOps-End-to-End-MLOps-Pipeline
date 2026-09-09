@@ -11,3 +11,4 @@ wheels/
 data/kaggle_download
 data/*.csv
 data/*.joblib
+svcaccount.yaml

@@ -1,0 +1,12 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: churn-predictor
+  namespace: ml
+spec:
+  predictor:
+    serviceAccountName: sa-s3-access
+    model:
+      modelFormat:
+        name: sklearn
+      storageUri: "s3://churn-dataset-ops/models"
