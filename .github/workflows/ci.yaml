@@ -41,7 +41,7 @@ jobs:
         aws-region: ${{env.AWS_REGION}}
     - name: Push new model to s3
       run: |
-        aws s3 cp models/model.joblib s3://${{env.S3_BUCKET}}/models/model.joblib
+        aws s3 cp data/model.joblib s3://${{env.S3_BUCKET}}/models/model.joblib
         echo "Model pushed to s3 successfully"
     - name: Update inference.yaml file
       run: |
