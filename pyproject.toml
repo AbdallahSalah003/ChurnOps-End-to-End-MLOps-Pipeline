@@ -1,0 +1,16 @@
+[project]
+name = "churnops"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "black>=26.5.1",
+    "isort>=9.0.1",
+    "joblib>=1.6.0",
+    "kagglehub>=1.0.2",
+    "pandas>=3.0.5",
+    "scikit-learn>=1.9.0",
+]
+[tool.black]
+target-version = ["py312"]
